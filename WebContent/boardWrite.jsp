@@ -99,7 +99,7 @@
             <div class="page_wrap">
                 <h2 class="page_title">문의글 작성</h2>
                 <div class="form_fr">
-                    <form name="frm1" action="" method="post" id="" class="">
+                    <form name="frm1" action="boardWritePro.jsp" method="post" id="" class="">
                         <table class="frm_tb">
                   			<tbody>
                   				<tr>
@@ -120,7 +120,9 @@
                   				</tr>
                   				<tr>
                   					<th><label for="author">작성자</label></th>
-                  					<td><%=author %></td>
+                  					<td><%=author %>
+                  					<input type="hidden">
+                  					</td>
                   				</tr>
                   				<tr>
                                     <td colspan="2">
