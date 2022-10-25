@@ -10,3 +10,7 @@
 ![클래스 설계](./img/database/pro01_01.png "클래스 설계")
 ![기능 설계](./img/database/pro01_01.png "기능 설계")
 ![DB ERD](./img/database/pro01_01.png "DB ERD")
+![회원가입 시퀀스](./img/database/pro01_01.png "DB ERD")
+![로그인 시퀀스](./img/database/pro01_01.png "DB ERD")
+
+## 화면 설계

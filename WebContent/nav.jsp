@@ -71,9 +71,9 @@
             <li class="item5">
                 <a href="customer.jsp#page1" class="dp1">고객센터</a>
                 <ul class="sub">
-                    <li><a href="customer.jsp#page1">문의하기</a></li>
-                    <li><a href="customer.jsp#page2">매장찾기</a></li>
-                    <li><a href="customer.jsp#page3">공지사항</a></li>
+                    <li><a href="customer.jsp#page1">매장찾기</a></li>
+                    <li><a href="boardList.jsp#page1">문의 게시판</a></li>
+                    <li><a href="boardWrite.jsp#page1">문의하기</a></li>
                 </ul>
             </li>
         </ul>
