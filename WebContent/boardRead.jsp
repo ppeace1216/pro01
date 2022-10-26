@@ -5,10 +5,12 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	String uid = (String) session.getAttribute("id");
 	
-	int no = 0;
+	int no = Integer.parseInt(request.getParameter("no"));
 	String title = "";
 	String content = "";
+	String uname = "";
 	String author = "";
 	String resdate = "";
 	
@@ -24,19 +26,20 @@
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select * from boarda where title=?";
+		sql = "select a.no no, a.title title, a.content content, ";
+		sql = sql + "b.name name, a.resdate resdate, a.author author ";
+		sql = sql + "from boarda a inner join membera b ";
+		sql = sql + "on a.author=b.id where a.no=?";
 		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, title);
-		//select된 데이터가 없으면, rs=null이 됨
+		pstmt.setInt(1, no);
 		rs = pstmt.executeQuery();
-		//int cnt = pstmt.executeUpdate();
-		
+				
 		if(rs.next()){
-			no = rs.getInt("no");
 			title = rs.getString("title");
 			content = rs.getString("content");
-			author = rs.getString("author");
+			uname = rs.getString("name");
 			resdate = rs.getString("resdate");
+			author = rs.getString("author");
 		}
 	} catch(Exception e){
 		e.printStackTrace();
@@ -113,19 +116,23 @@
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td><%=author %></td>
+								<td><%=uname %></td>
 							</tr>
 							<tr>
-								<th>작성 시간</th>
+								<th>작성일</th>
 								<td><%=resdate %></td>
-							</tr>
-							<tr>
-								<button type="button" class="in_btn" onclick="boardWrite">글 수정</button>
-								<button type="button" class="in_btn" onclick="boardDelete">글 삭제</button>
 							</tr>
 						</tbody>
 					</table>
-					<a href="boardList.jsp">목록으로 돌아가기</a>
+					<div class="btn_group">
+						<a href="boardList.jsp" class="btn primary">게시판 목록</a>
+						<%
+							if(uid.equals("admin") || uid.equals(author)) {
+						%>
+						<a href='boardModify.jsp?no=<%=no %>' class="btn primary">글 수정</a>
+						<a href='boardDelete.jsp?no=<%=no %>' class="btn primary">글 삭제</a>
+						<% } %>
+					</div>
 				</div>
 			</div>
         </section>

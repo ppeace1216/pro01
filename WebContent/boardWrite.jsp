@@ -1,47 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*, java.sql.*" %>
 <%
-	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	response.setContentType("text/html; charset=UTF-8");
-	
-	int no = 0;
-	String title = "";
-	String content = "";
-	String author = "";
-	String resdate = "";
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "update boarda";
-		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
-		
-		if(rs.next()){
-			no = rs.getInt("no");
-			title = rs.getString("title");
-			content = rs.getString("content");
-			author = rs.getString("author");
-			resdate = rs.getString("resdate");
-		}
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally {
-		rs.close();
-		pstmt.close();
-		con.close();
-	}
+	String uid = (String) session.getAttribute("id");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,13 +59,9 @@
             <div class="page_wrap">
                 <h2 class="page_title">문의글 작성</h2>
                 <div class="form_fr">
-                    <form name="frm1" action="boardWritePro.jsp" method="post" id="" class="">
+                    <form name="frm1" action="boardWritePro.jsp" method="post" id="frm" class="frm">
                         <table class="frm_tb">
                   			<tbody>
-                  				<tr>
-                  					<th><label for="no">글 번호</label></th>
-                  					<td><%=no %></td>
-                  				</tr>
                   				<tr>
                   					<th><label for="title">제목</label></th>
                   					<td>
@@ -119,20 +75,17 @@
                   					</td>
                   				</tr>
                   				<tr>
-                  					<th><label for="author">작성자</label></th>
-                  					<td><%=author %>
-                  					<input type="hidden">
-                  					</td>
+                  					<th>작성자</th>
+									<td><%=uid %>
+									<input type="hidden" name="author" id="author" value="<%=uid %>"> 
+									</td>
                   				</tr>
-                  				<tr>
-                                    <td colspan="2">
-                                        <button type="submit" class="in_btn">문의글 등록</button>
-                                        <button type="reset" class="in_btn">등록 취소</button>
-                                    </td>
-                                </tr>
                   			</tbody>
     					</table>
-    					<a href="boardList.jsp">목록으로 돌아가기</a>
+    					<div class="btn_group">
+							<button type="submit" class="btn primary">문의글 등록</button>
+							<a href="boardList.jsp" class="btn primary">게시판 목록</a>
+						</div>
     				</form>
     			</div>
     		</div>

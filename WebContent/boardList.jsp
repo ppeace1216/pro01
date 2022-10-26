@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*, java.sql.*" %>
+<%@ page import = "java.util.*, java.sql.*, java.text.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	String uid = (String) session.getAttribute("id");
 	
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -14,13 +15,34 @@
 	String dbid="system";
 	String dbpw="1234";
 	String sql="";
+	int cnt=0;
+	int amount=0;
+	int curPage = 0;
+	int pageCount = 0;
+	int startNum = 0;
+	int endNum = 0;	
 	
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select * from boarda";
+		
+		sql = "select count(*) cnt from boarda";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
+		if (rs.next()){
+			amount = rs.getInt("cnt");
+		}
+		rs.close();
+		pstmt.close();
+		
+		pstmt=null;
+		rs=null;
+		
+		sql = "select a.no no, a.title title, a.content content, b.name name, a.resdate resdate from boarda a inner join membera b on a.author=b.id order by a.resdate desc";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
+		out.println("<p>건수 : "+amount+"건</p>");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -34,8 +56,8 @@
     .hd { position:fixed; }
     .vs { clear:both; width: 100%; height:300px; overflow: hidden; }
     .vs img { display:block; width: 100%; height:auto; }
-    .bread { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
-    .bread_fr { width: 1200px; margin: 0 auto; }
+    .bDetail { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
+    .bDetail_fr { width: 1200px; margin: 0 auto; }
     .page { clear:both; width: 100%; min-height:100vh;}
     .page:after { content:""; display:block; clear:both; }
     .page_wrap { width: 1200px; margin: 0 auto; }
@@ -47,22 +69,6 @@
     .to_top:hover { background-color: rgb(131, 183, 129); }
     .to_top.on { visibility: visible; }
     </style>
-    <script>
-    $(document).ready(function(){
-        $(".to_top").attr("href", location.href);
-        $(window).scroll(function(){
-            var ht = $(window).height();
-            var tp = $(this).scrollTop();
-            if(tp>=300){
-                $(".to_top").addClass("on");
-                $(".to_top").attr("href", location.href);
-            } else {
-                $(".to_top").removeClass("on");
-                $(".to_top").attr("href", location.href);
-            }
-        });
-    });    
-    </script>
 </head>
 <body>
 <div class="wrap">
@@ -73,8 +79,8 @@
         <figure class="vs">
             <img src="./img/tea_garden.jpg" alt="비주얼">
         </figure>
-        <div class="bread">
-            <div class="bread_fr">
+        <div class="bDetail">
+            <div class="bDetail_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
                 <select name="sel1" id="sel1" class="sel">
                     <option value="">고객센터</option>
@@ -94,27 +100,65 @@
         	<div class="page_wrap">
         		<h2 class="page_title">문의 게시판</h2>
         			<div class="tb_fr">
+        				<div class="tb_om">
+        					<strong></strong>
+        					<strong></strong>
+        				</div>
         				<table class="tb">
         					<thead>
         						<tr>
         							<th>게시 번호</th>
         							<th>제	목</th>
         							<th>작성자</th>
-        							<th>작성 시간</th>
+        							<th>작성일</th>
         						</tr>
         					</thead>
         					<tbody>
 <%
-		int cnt = 0;
+		curPage = 1;
+		if(request.getParameter("curPage")!=null){
+			curPage = Integer.parseInt(request.getParameter("curPage"));
+		}
+		pageCount = (amount%10==0) ? amount/10 : amount/10+1;
+		startNum = curPage*10-9;
+		endNum = curPage*10;
+		if(endNum>amount){
+			endNum=amount;	
+		}
+		
+		rs.close();
+		pstmt.close();
+		
+		pstmt=null;
+		rs=null;
+		
+		sql = "select no, title, content, author, resdate from (select rownum rn, no, title, content, author, resdate from boarda order by no desc) t1 where t1.rn between ? and ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, startNum);
+		pstmt.setInt(2, endNum);
+		rs = pstmt.executeQuery();
+		
+		cnt = startNum;
 		while(rs.next()){
-			cnt+=1;	
+			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
+			String date = yymmdd.format(rs.getDate("resdate"));
 %>
-			<tr>
-				<td><%=cnt %></td>
-				<td><a href='boardRead.jsp?id=<%=rs.getString("title") %>'><%=rs.getString("title") %></a></td>
-				<td><%=rs.getString("author") %></td>
-				<td><%=rs.getString("resdate") %></td>
-			</tr>
+								<tr>
+									<td><%=cnt %></td>
+									<%
+									if(uid!=null) {
+									%>
+										<td><a href='boardDetail.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
+									<%
+									} else {
+									%>
+										<td><%=rs.getString("title") %></td>
+									<%
+									}
+									%>
+									<td><%=rs.getString("author") %></td>
+									<td><%=date %></td>
+								</tr>
 <%
 		}
 	} catch(Exception e){
@@ -127,6 +171,29 @@
 %>        					
         					</tbody>
         				</table>
+        				<div class="pageCount">
+        				<%
+        					
+        				
+        					pageCount = (amount%10==0) ? amount/10 : amount/10+1;
+        				
+        				//여기다 게시글 검색
+        					for(int i=1;i<=pageCount;i++) {
+        				%>
+        					<a href="boardList.jsp?curPage=<%=i%>"><%=i %>&nbsp;</a>
+        				<%		
+        					}
+        				%>
+        				</div>
+        				<div class="btn_group">
+        				<%
+        					if(uid!=null){
+        				%>		
+        					<a href="boardWrite.jsp" class="btn primary">문의글 쓰기</a>
+        				<%		
+        					}
+        				%>
+        				</div>
         			</div>
         	</div>
         </section>
@@ -143,6 +210,5 @@
 		<%@ include file = "footer.jsp" %>
     </footer>
 </div>
-<a href="" class="to_top">↑</a><!-- .to_top.on -->
 </body>
 </html>

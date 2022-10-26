@@ -5,9 +5,10 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
+	int no = Integer.parseInt(request.getParameter("no"));
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
-	String author = request.getParameter("author");
 	
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -21,16 +22,16 @@
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "insert into boarda values (bseq.nextval, ?, ?, ?, sysdate)";
+		sql = "update boarda set title = ?, content = ?, where no = ?)";
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, title);
 		pstmt.setString(2, content);
-		pstmt.setString(3, author);
+		pstmt.setInt(3, no);
 		cnt = pstmt.executeUpdate();
 		if(cnt>0){
 			response.sendRedirect("boardList.jsp");
 		} else {
-			response.sendRedirect("boardWrite.jsp");
+			response.sendRedirect("boardRead.jsp?no=+no");
 		}
 	} catch(Exception e){
 		e.printStackTrace();

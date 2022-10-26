@@ -1,53 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*,java.text.*,java.sql.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
 	String uid = (String) session.getAttribute("id");
-	
-	int no = Integer.parseInt(request.getParameter("no"));
-	String title = "";
-	String content = "";
-	String uname = "";
 	String author = "";
-	String resdate = "";
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select a.no no, a.title title, a.content content, ";
-		sql = sql + "b.name name, a.resdate resdate, a.author author ";
-		sql = sql + "from boarda a inner join membera b ";
-		sql = sql + "on a.author=b.id where a.no=?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, no);
-		rs = pstmt.executeQuery();
-				
-		if(rs.next()){
-			title = rs.getString("title");
-			content = rs.getString("content");
-			uname = rs.getString("name");
-			resdate = rs.getString("resdate");
-			author = rs.getString("author");
-		}
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally {
-		rs.close();
-		pstmt.close();
-		con.close();
-	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -118,52 +78,57 @@
             </div>
         </div>
         <section class="page">
-            <div class="page_wrap">
-                <h2 class="page_title">문의글 수정하기</h2>
-                <div class="form_fr">
-                    <form name="frm1" action="boardModifyPro.jsp" method="post" id="frm" class="frm">
-                        <table class="frm_tb">
-                  			<tbody>
-                  				<tr>
-									<th>글 번호</th>
-									<td><%=no %><input type="hidden" name="no" id="no" value="<%=no %>" readonly></td>
-								</tr>
-                  				<tr>
-                  					<th><label for="title">제목</label></th>
-                  					<td>
-                                        <input type="text" id="title" name="title" class="in_dt" required autofocus>
-                                    </td>
-                  				</tr>
-                  				<tr>
-                  					<th><label for="content">문의 내용</label></th>
-                  					<td>
-                  						<textarea rows="100" cols="10" name="content" id="content" class="content"></textarea>
-                  					</td>
-                  				</tr>
-                  				<tr>
-                  					<th>작성자</th>
-									<td><%=uname %>
-									</td>
-                  				</tr>
-                  			</tbody>
-    					</table>
-    					<div class="btn_group">
-							<button type="submit" class="btn primary">문의글 수정하기</button>
-							<a href="boardList.jsp" class="btn primary">게시판 목록</a>
+        	<div class="page_wrap">
+        		<h2 class="page_title">문의 게시판</h2>
+        			<div class="tb_fr">
+<%@ include file = "connectionPool.conf" %>
+<%
+	int no = Integer.parseInt(request.getParameter("no"));
+	sql = "select a.no no,a.title title, a.author author, a.content con, b.name name, to_char(a.resdate, 'yyyy-MM-dd') res from boarda a inner join membera b on a.author=b.id where a.no=?";
+	pstmt = con.prepareStatement(sql);
+	pstmt.setInt(1, no);
+	rs = pstmt.executeQuery();
+	
+	if (rs.next()){
+		author = rs.getString("author");
+	}
+%>
+						<table class="tb">
+							<tr>
+								<td>게시 번호</td>
+								<td><%=rs.getInt("no") %></td>
+							</tr>
+							<tr>
+								<td>제목</td>
+								<td><%=rs.getString("title") %></td>
+							</tr>
+							<tr>
+								<td>내용</td>
+								<td><%=rs.getString("con") %></td>
+							</tr>
+							<tr>
+								<td>이름</td>
+								<td><%=rs.getString("name") %></td>
+							</tr>
+							<tr>
+								<td>작성일</td>
+								<td><%=rs.getString("res") %></td>
+							</tr>
+							<%@ include file = "connectionEnd.conf" %>
+						</table>
+						<div class="btn_group">
+							<a href="boardList.jsp" class=button_primary>글 목록으로 돌아가기</a>
+							<%
+								if(uid.equals("admin") || uid.equals(author)) {
+							%>
+							<a href="boardModify.jsp" class=button_primary>글 수정</a>
+							<a href="boardWrite.jsp" class=button_primary>글 작성</a>
+							<% } %>
 						</div>
-    				</form>
-    			</div>
-    		</div>
-    	</section>
+					</div>
+			</div>
+		</section>
 	</div>
-    <script>
-    var sel = document.getElementsByClassName("sel");
-    for(var i=0;i<sel.length;i++){
-        sel[i].addEventListener("change", function(){
-            location.href = this.value;
-        });
-    }
-    </script>
     <footer class="ft">
 		<%@ include file = "footer.jsp" %>
     </footer>

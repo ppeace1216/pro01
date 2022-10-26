@@ -1,58 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import = "java.util.*, java.sql.*, java.text.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	String uid = (String) session.getAttribute("id");
 	
-	int no = Integer.parseInt(request.getParameter("no"));
-	String title = "";
-	String content = "";
-	String uname = "";
-	String author = "";
-	String resdate = "";
-	
 	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
+	String url="jdbc:oracle:thin:@localhost:1521:xe";
+	String dbid="system";
+	String dbpw="1234";
+	String sql="";
+	int cnt=0;
 	
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select a.no no, a.title title, a.content content, ";
-		sql = sql + "b.name name, a.resdate resdate, a.author author ";
-		sql = sql + "from boarda a inner join membera b ";
-		sql = sql + "on a.author=b.id where a.no=?";
+		
+		pstmt=null;
+		rs=null;
+		
+		sql = "select a.no no, a.title title, a.content content, b.name name, a.resdate resdate from boarda a inner join membera b on a.author=b.id order by a.resdate desc";
 		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, no);
 		rs = pstmt.executeQuery();
-				
-		if(rs.next()){
-			title = rs.getString("title");
-			content = rs.getString("content");
-			uname = rs.getString("name");
-			resdate = rs.getString("resdate");
-			author = rs.getString("author");
-		}
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally {
-		rs.close();
-		pstmt.close();
-		con.close();
-	}
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<%@ include file = "head.jsp" %>
+	<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
     <link rel="stylesheet" href="./css/reset2.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
@@ -74,21 +55,11 @@
     .to_top:hover { background-color: rgb(131, 183, 129); }
     .to_top.on { visibility: visible; }
     </style>
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script>
-    $(document).ready(function(){
-        $(".to_top").attr("href", location.href);
-        $(window).scroll(function(){
-            var ht = $(window).height();
-            var tp = $(this).scrollTop();
-            if(tp>=300){
-                $(".to_top").addClass("on");
-                $(".to_top").attr("href", location.href);
-            } else {
-                $(".to_top").removeClass("on");
-                $(".to_top").attr("href", location.href);
-            }
-        });
-    });    
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );   
     </script>
 </head>
 <body>
@@ -118,44 +89,68 @@
             </div>
         </div>
         <section class="page">
-            <div class="page_wrap">
-                <h2 class="page_title">문의글 수정하기</h2>
-                <div class="form_fr">
-                    <form name="frm1" action="boardModifyPro.jsp" method="post" id="frm" class="frm">
-                        <table class="frm_tb">
-                  			<tbody>
-                  				<tr>
-									<th>글 번호</th>
-									<td><%=no %><input type="hidden" name="no" id="no" value="<%=no %>" readonly></td>
-								</tr>
-                  				<tr>
-                  					<th><label for="title">제목</label></th>
-                  					<td>
-                                        <input type="text" id="title" name="title" class="in_dt" required autofocus>
-                                    </td>
-                  				</tr>
-                  				<tr>
-                  					<th><label for="content">문의 내용</label></th>
-                  					<td>
-                  						<textarea rows="100" cols="10" name="content" id="content" class="content"></textarea>
-                  					</td>
-                  				</tr>
-                  				<tr>
-                  					<th>작성자</th>
-									<td><%=uname %>
-									</td>
-                  				</tr>
-                  			</tbody>
-    					</table>
-    					<div class="btn_group">
-							<button type="submit" class="btn primary">문의글 수정하기</button>
-							<a href="boardList.jsp" class="btn primary">게시판 목록</a>
-						</div>
-    				</form>
-    			</div>
-    		</div>
-    	</section>
-	</div>
+        	<div class="page_wrap">
+        		<h2 class="page_title">문의 게시판</h2>
+        			<div class="tb_fr">
+        				<table class="tb">
+        					<thead>
+        						<tr>
+        							<th>게시 번호</th>
+        							<th>제	목</th>
+        							<th>작성자</th>
+        							<th>작성일</th>
+        						</tr>
+        					</thead>
+        					<tbody>
+<%
+		cnt = 0;
+		while(rs.next()){
+			cnt+=1;	
+			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
+			String date = yymmdd.format(rs.getDate("resdate"));
+%>
+			<tr>
+				<td><%=cnt %></td>
+				<%
+				if(uid!=null) {
+				%>
+					<td><a href='boardRead.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
+				<%
+				} else {
+				%>
+					<td><%=rs.getString("title") %></td>
+				<%
+				}
+				%>
+				<td><%=rs.getString("name") %></td>
+				<td><%=date %></td>
+			</tr>
+<%
+		}
+	} catch(Exception e){
+		e.printStackTrace();
+	} finally {
+		rs.close();
+		pstmt.close();
+		con.close();
+	}
+%>        					
+        					</tbody>
+        				</table>
+        				</div>
+        				<div class="btn_group">
+        				<%
+        					if(uid!=null){
+        				%>		
+        					<a href="boardWrite.jsp" class="btn primary">문의글 쓰기</a>
+        				<%		
+        					}
+        				%>
+        				</div>
+        			</div>
+        	</div>
+        </section>
+    </div>
     <script>
     var sel = document.getElementsByClassName("sel");
     for(var i=0;i<sel.length;i++){

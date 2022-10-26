@@ -47,7 +47,7 @@
             <li class="item2">
                 <a href="gift.jsp#page1" class="dp1">선물세트</a>
                 <ul class="sub">
-                    <li><a href="gift.jsp#page1">다다일상의 추천</a></li>
+                    <li><a href="gift.jsp#page1">다다일상 추천</a></li>
                     <li><a href="gift.jsp#page2">베스트</a></li>
                     <li><a href="gift.jsp#page3">티웨어 세트</a></li>
                 </ul>
