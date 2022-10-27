@@ -70,14 +70,14 @@
                 <h2 class="page_title">문의글 수정하기</h2>
                 <div class="form_fr">
                 <%@include file = "connectionPool.conf" %>
-<%
-		sql = "select * from boarda where no=?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, no);
-		rs = pstmt.executeQuery();
-				
-		if(rs.next()){
-%>
+				<%
+					sql = "select * from boarda where no=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					rs = pstmt.executeQuery();
+							
+					if(rs.next()){
+				%>
                     <form name="frm" class="frm" action="boardModifyPro.jsp" method="post">
 						<input type="hidden" name="no" id="no" value='<%=rs.getInt("no") %>' required>
 						<table class="tb">
@@ -98,13 +98,13 @@
 								</tr>
 							</tbody>
 						</table>
+						<%} %>
+    					<%@ include file = "connectionEnd.conf" %>
     					<div class="btn_group">
 							<button type="submit" class="btn primary">문의글 수정하기</button>
 							<a href="boardList.jsp" class="btn primary">게시판 목록</a>
 						</div>
     				</form>
-    				<%} %>
-    				<%@ include file = "connectionEnd.conf" %>
     			</div>
     		</div>
     	</section>

@@ -55,12 +55,15 @@
     .to_top:hover { background-color: rgb(131, 183, 129); }
     .to_top.on { visibility: visible; }
     </style>
-    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
-    <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );   
-    </script>
+    <title>게시판 글 목록</title>
+	<link rel="stylesheet" href="footer.css">
+	<link rel="stylesheet" href="datatables.min.css">
+	<script src="datatables.min.js"></script>
+	<script>
+	$(document).ready( function () {
+	    $('#myTable').DataTable();
+	} );
+	</script>
 </head>
 <body>
 <div class="wrap">
