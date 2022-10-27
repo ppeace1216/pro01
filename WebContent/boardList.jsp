@@ -138,8 +138,9 @@
 		pstmt.setInt(2, endNum);
 		rs = pstmt.executeQuery();
 		
-		cnt = startNum;
+		cnt = startNum-1;
 		while(rs.next()){
+			cnt+=1;
 			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
 			String date = yymmdd.format(rs.getDate("resdate"));
 %>

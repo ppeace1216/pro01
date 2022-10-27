@@ -138,7 +138,7 @@
                 function idcheck(){
                 	var win = window.open("idcheck.jsp", "idcheckWin", "width=400, height=300");
                 }
-                </script>
+			</script>
         </section>
     </div>
     <footer class="ft">

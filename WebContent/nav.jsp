@@ -57,7 +57,7 @@
                 <ul class="sub">
                     <li><a href="subscription.jsp#page1">다다일상 구독</a></li>
                     <li><a href="subscription.jsp#page2">다다일상 기록</a></li>
-                    <li><a href="subscription.jsp#page3">다다일상 FAQ</a></li>
+                    <li><a href="faqList.jsp#page1">다다일상 FAQ</a></li>
                 </ul>
             </li>
             <li class="item4">

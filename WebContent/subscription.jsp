@@ -101,7 +101,7 @@
                 <select name="sel2" id="sel2" class="sel">
                     <option value="" selected>다다일상 구독</option>
                     <option value="subscription.jsp#page2">다다일상 기록</option>
-                    <option value="subscription.jsp#page3">다다일상 FAQ</option>
+                    <option value="faqList.jsp#page1">다다일상 FAQ</option>
                 </select>
             </div>
         </div>
@@ -177,7 +177,7 @@
                 <select name="sel4" id="sel4" class="sel">
                     <option value="" selected>다다일상 기록</option>
                     <option value="subscription.jsp#page1">다다일상 구독</option>
-                    <option value="subscription.jsp#page3">다다일상 FAQ</option>
+                    <option value="faqList.jsp#page1">다다일상 FAQ</option>
                 </select>
             </div>
         </div>
@@ -258,60 +258,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-        </section>
-    </div>
-    <div class="content" id="page3">
-        <figure class="vs">
-            <img src="./img/tea_garden.jpg" alt="비주얼">
-        </figure>
-        <div class="bread">
-            <div class="bread_fr">
-                <a href="index.jsp" class="home">HOME</a> &gt;
-                <select name="sel5" id="sel5" class="sel">
-                    <option value="">다다일상</option>
-                    <option value="product.jsp#page1">제품</option>
-                    <option value="gift.jsp#page1">선물세트</option>
-                    <option value="brand.jsp#page1">브랜드</option>
-                    <option value="customer.jsp#page1">고객센터</option>
-                </select> &gt;
-                <select name="sel6" id="sel6" class="sel">
-                    <option value="" selected>다다일상 FAQ</option>
-                    <option value="subscription.jsp#page1">다다일상 구독</option>
-                    <option value="subscription.jsp#page2">다다일상 기록</option>
-                </select>
-            </div>
-        </div>
-        <section class="page">
-            <div class="page_wrap">
-                <h2 class="page_title">다다일상 FAQ</h2>
-                <p class="page_p2">가장 많이 하는 질문들을 모아 알려드립니다!</p>
-                <ul class="noti_lst">
-                    <li>
-                        <span class="noti_num">Q1.</span>
-                        <span class="not_tit"><a href="">결제일 변경이 가능한가요?</a></span>
-                    </li>
-                    <li>
-                        <span class="noti_num">Q2.</span>
-                        <span class="not_tit"><a href="">배송지 변경은 어떻게 하나요?</a></span>
-                    </li>
-                    <li>
-                        <span class="noti_num">Q3.</span>
-                        <span class="not_tit"><a href="">홈카페를 이용하다가 베이직으로 변경할 수 있나요?</a></span>
-                    </li>
-                    <li>
-                        <span class="noti_num">Q4.</span>
-                        <span class="not_tit"><a href="">구독 신청은 언제든지 가능한가요?</a></span>
-                    </li>
-                    <li>
-                        <span class="noti_num">Q5.</span>
-                        <span class="not_tit"><a href="">이번 달 다다일상은 패스하고 싶어요.</a></span>
-                    </li>
-                    <li>
-                        <span class="noti_num">Q6.</span>
-                        <span class="not_tit"><a href="">이번 달에 결제가 되지 않았어요. 왜 그런 건가요?</a></span>
-                    </li>
-                </ul>
             </div>
         </section>
     </div>

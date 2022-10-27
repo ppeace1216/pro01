@@ -8,6 +8,7 @@
 	
 	String uid = (String) session.getAttribute("id");
 	String author = "";
+	int no = Integer.parseInt(request.getParameter("no"));
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -83,7 +84,6 @@
         			<div class="tb_fr">
 <%@ include file = "connectionPool.conf" %>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
 	sql = "select a.no no,a.title title, a.author author, a.content con, b.name name, to_char(a.resdate, 'yyyy-MM-dd') res from boarda a inner join membera b on a.author=b.id where a.no=?";
 	pstmt = con.prepareStatement(sql);
 	pstmt.setInt(1, no);
@@ -121,8 +121,9 @@
 							<%
 								if(uid.equals("admin") || uid.equals(author)) {
 							%>
-							<a href="boardModify.jsp" class=button_primary>글 수정</a>
+							<a href='boardModify.jsp?no=<%=no %>' class="btn primary">글 수정</a>
 							<a href="boardWrite.jsp" class=button_primary>글 작성</a>
+							<a href="boardDelete.jsp" class=button_primary>글 삭제</a>
 							<% } %>
 						</div>
 					</div>

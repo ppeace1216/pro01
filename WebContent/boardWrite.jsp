@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String uid = (String) session.getAttribute("id");
+	String author = (String) session.getAttribute("author");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -59,36 +60,50 @@
             <div class="page_wrap">
                 <h2 class="page_title">문의글 작성</h2>
                 <div class="form_fr">
-                    <form name="frm1" action="boardWritePro.jsp" method="post" id="frm" class="frm">
-                        <table class="frm_tb">
-                  			<tbody>
-                  				<tr>
-                  					<th><label for="title">제목</label></th>
-                  					<td>
-                                        <input type="text" id="title" name="title" class="in_dt" required autofocus>
-                                    </td>
-                  				</tr>
-                  				<tr>
-                  					<th><label for="content">문의 내용</label></th>
-                  					<td>
-                  						<textarea rows="100" cols="10" name="content" id="content" class="content"></textarea>
-                  					</td>
-                  				</tr>
-                  				<tr>
-                  					<th>작성자</th>
-									<td><%=uid %>
-									<input type="hidden" name="author" id="author" value="<%=uid %>"> 
-									</td>
-                  				</tr>
-                  			</tbody>
-    					</table>
-    					<div class="btn_group">
-							<button type="submit" class="btn primary">문의글 등록</button>
-							<a href="boardList.jsp" class="btn primary">게시판 목록</a>
-						</div>
-    				</form>
+                	<form name="frm1" action="boardWritePro.jsp" method="post" id="writeform" class="frm" onsubmit="return writeAlert(this)">
+                		<table class="frm_tb">
+                			<tbody>
+                				<tr>
+                					<th>제목</th>
+                					<td>
+                						<input type="text" id="title" name="title" class="write_td" required>
+                					</td>
+                				</tr>
+                				<tr>
+                					<th>내용</th>
+                					<td>
+                						<textarea rows="50" cols="100" name="content" id="content" class="write_td" required></textarea>
+                					</td>
+                				</tr>
+                				<tr>
+                					<th>작성자</th>
+                					<td>
+                						<input type="text" id="author" name="author" class="write_td" value="<%= uid %>" readonly>
+                					</td>
+                				</tr>
+                			</tbody>
+                		</table>
+                		<div class="btn_group">
+                				<a href="boardList.jsp" class="button_primary">글 목록으로 돌아가기</a>
+                				<button type="submit" class="button_primary">문의글 등록</button>
+                				<%
+									if(uid!="admin" || uid!=author) {
+								%>
+								<span class="button_primary">로그인 후 문의글 작성이 가능합니다.</span>
+								<% } else if(uid.equals("admin") || uid.equals(author)) {%>
+								<button type="submit" class="button_primary">문의글 등록</button>
+								<% } %>
+                		</div>
+                	</form>
     			</div>
     		</div>
+    		<script>
+                function writeAlert(f){
+                	if(f.author.value.equals(null)){
+                		alert("로그인한 회원만 문의글 작성이 가능합니다.");
+                		return false;
+                	}
+			</script>
     	</section>
 	</div>
     <script>
