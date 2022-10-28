@@ -5,6 +5,7 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
 	String uid = (String) session.getAttribute("id");
 	
 	Connection con = null;
@@ -92,7 +93,7 @@
                 <select name="sel2" id="sel2" class="sel">
                     <option value="" selected>문의 게시판</option>
                     <option value="customer.jsp#page1">매장찾기</option>
-                    <option value="boardWrite.jsp#page1">문의하기</option>
+                    <option value="online.jsp#page1">온라인 상담</option>
                 </select>
             </div>
         </div>
@@ -100,10 +101,6 @@
         	<div class="page_wrap">
         		<h2 class="page_title">문의 게시판</h2>
         			<div class="tb_fr">
-        				<div class="tb_om">
-        					<strong></strong>
-        					<strong></strong>
-        				</div>
         				<table class="tb">
         					<thead>
         						<tr>
@@ -149,7 +146,7 @@
 									<%
 									if(uid!=null) {
 									%>
-										<td><a href='boardDetail.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
+										<td><a href='boardRead.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
 									<%
 									} else {
 									%>

@@ -77,7 +77,7 @@
                 <select name="sel2" id="sel2" class="sel">
                     <option value="" selected>매장찾기</option>
                     <option value="boardList.jsp#page1">문의 게시판</option>
-                    <option value="boardWrite.jsp#page1">문의하기</option>
+                    <option value="online.jsp#page1">온라인 상담</option>
                 </select>
             </div>
         </div>

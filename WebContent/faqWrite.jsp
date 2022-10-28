@@ -40,55 +40,49 @@
             <img src="./img/tea_garden.jpg" alt="비주얼">
         </figure>
         <div class="bread">
-            <div class="bread_fr">
-                <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">문의글 작성</span>
+	        <div class="bread_fr">
+	         <a href="index.jsp" class="home">HOME</a> &gt;
+	         <span class="sel">FAQ 작성</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">문의글 작성</h2>
+                <h2 class="page_title">FAQ 작성</h2>
                 <div class="form_fr">
-                	<form name="frm1" action="boardWritePro.jsp" method="post" id="writeform" class="frm" onsubmit="return writeAlert(this)">
+                	<form name="frm1" action="faqWritePro.jsp" method="post" id="writeform" class="frm" onsubmit="return writeAlert(this)">
                 		<table class="frm_tb">
                 			<tbody>
-                				<tr>
-                					<th>제목</th>
-                					<td>
-                						<input type="text" id="title" name="title" class="write_td" maxlength="100" required>
-                					</td>
-                				</tr>
-                				<tr>
-                					<th>내용</th>
-                					<td>
-                						<textarea rows="50" cols="100" name="content" id="content" class="write_td" maxlength="1000" required></textarea>
-                					</td>
-                				</tr>
-                				<tr>
-                					<th>작성자</th>
-                					<td>
-                						<input type="text" id="author" name="author" class="write_td" value="<%= uid %>" readonly>
-                					</td>
-                				</tr>
-                			</tbody>
+								<tr>
+									<th><label for="title">제목</label></th>
+									<td><input type="text" name="title" id="title" placeholder="제목 입력" class="in_data" required></td>
+								</tr>
+								<tr>
+									<th><label for="content">질문 내용</label></th>
+									<td>
+										<textarea cols="100" rows="6" name="content" id="content" class="in_data2"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><label for="content2">답변 내용</label></th>
+									<td>
+										<textarea cols="100" rows="6" name="content2" id="content2" class="in_data2"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><label for="author">작성자</label></th>
+									<td><input type="text" name="author" id="author" class="in_data" value="admin" readonly required></td>
+								</tr>
+							</tbody>
                 		</table>
-                		<div class="btn_group">
-                				<a href="boardList.jsp" class="button_primary">글 목록으로 돌아가기</a>
-                				<button type="submit" class="button_primary">문의글 등록</button>
-                		</div>
+	                	<div class="btn_group">
+							<button type="submit" class="btn primary">글 쓰기</button>
+							<a href="faq.jsp" class="btn primary">목록으로</a>
+						</div>
                 	</form>
     			</div>
     		</div>
     	</section>
 	</div>
-    <script>
-    var sel = document.getElementsByClassName("sel");
-    for(var i=0;i<sel.length;i++){
-        sel[i].addEventListener("change", function(){
-            location.href = this.value;
-        });
-    }
-    </script>
     <footer class="ft">
 		<%@ include file = "footer.jsp" %>
     </footer>

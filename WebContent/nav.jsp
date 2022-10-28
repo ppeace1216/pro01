@@ -73,7 +73,7 @@
                 <ul class="sub">
                     <li><a href="customer.jsp#page1">매장찾기</a></li>
                     <li><a href="boardList.jsp#page1">문의 게시판</a></li>
-                    <li><a href="boardWrite.jsp#page1">문의하기</a></li>
+                    <li><a href="online.jsp#page1">온라인 상담</a></li>
                 </ul>
             </li>
         </ul>

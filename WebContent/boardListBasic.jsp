@@ -112,22 +112,22 @@
 			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
 			String date = yymmdd.format(rs.getDate("resdate"));
 %>
-			<tr>
-				<td><%=cnt %></td>
-				<%
-				if(uid!=null) {
-				%>
-					<td><a href='boardRead.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
-				<%
-				} else {
-				%>
-					<td><%=rs.getString("title") %></td>
-				<%
-				}
-				%>
-				<td><%=rs.getString("name") %></td>
-				<td><%=date %></td>
-			</tr>
+								<tr>
+									<td><%=cnt %></td>
+									<%
+									if(uid!=null) {
+									%>
+										<td><a href='boardRead.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
+									<%
+									} else {
+									%>
+										<td><%=rs.getString("title") %></td>
+									<%
+									}
+									%>
+									<td><%=rs.getString("name") %></td>
+									<td><%=date %></td>
+								</tr>
 <%
 		}
 	} catch(Exception e){

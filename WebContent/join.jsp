@@ -78,7 +78,7 @@
                                 <tr>
                                     <th><label for="id">아이디</label></th>
                                     <td>
-                                        <input type="text" id="id" name="id" class="in_dt" required autofocus>
+                                        <input type="text" id="id" name="id" class="in_dt" placeholder="8~16자 사이로 아이디 작성" maxlength="16" pattern="[a-z0-9]{8,16}"required autofocus>
                                         <button type="button" class="in_btn" onclick="idcheck()">아이디 중복체크</button>
                                         <input type="hidden" name="idck" value="no" />
                                     </td>
@@ -86,31 +86,31 @@
                                 <tr>
                                     <th><label for="pw">비밀번호</label></th>
                                     <td>
-                                        <input type="password" id="pw" name="pw" class="in_dt" required>
+                                        <input type="password" id="pw" name="pw" class="in_dt" placeholder="영문대소문자,특수문자,숫자를 조합하여 8~20자" maxlength="20" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><label for="pw2">비밀번호 확인</label></th>
                                     <td>
-                                        <input type="password" id="pw2" name="pw2" class="in_dt" required>
+                                        <input type="password" id="pw2" name="pw2" class="in_dt" placeholder="비밀번호 확인" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><label for="name">이  름</label></th>
                                     <td>
-                                        <input type="text" id="name" name="name" class="in_dt" required>
+                                        <input type="text" id="name" name="name" class="in_dt" pattern="\[^(가-힣)]\" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><label for="email">이메일</label></th>
                                     <td>
-                                        <input type="email" id="email" name="email" class="in_dt" required>
+                                        <input type="email" id="email" name="email" class="in_dt" placeholder="네이버 이메일을 입력해주세요" pattern=".+@naver\.com" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><label for="tel">전화번호</label></th>
                                     <td>
-                                        <input type="tel" id="tel" name="tel" class="in_dt" required>
+                                        <input type="tel" id="tel" name="tel" class="in_dt" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" placeholder="000-0000-0000" required>
                                     </td>
                                 </tr>
                                 <tr>
