@@ -94,7 +94,7 @@
 								<tr>
 									<th><label for="content">내용</label></th>
 									<td>
-										<textarea cols="100" rows="50" name="content" id="content" class="in_data2"><%=rs.getString("content") %></textarea>
+										<textarea cols="100" rows="5" name="content" id="content" class="in_data2"><%=rs.getString("content") %></textarea>
 									</td>
 								</tr>
 								<tr>

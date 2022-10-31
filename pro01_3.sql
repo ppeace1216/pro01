@@ -9,20 +9,26 @@
    );
    
 create sequence fseq;
-
+-- 질문
 insert into faqa values (fseq.nextval, 'Q1', '질문 1', 'admin', sysdate, 0, fseq.currval);
 insert into faqa values (fseq.nextval, 'Q2', '질문 2', 'admin', sysdate, 0, fseq.currval);
 insert into faqa values (fseq.nextval, 'Q3', '질문 3', 'admin', sysdate, 0, fseq.currval);
 insert into faqa values (fseq.nextval, 'Q4', '질문 4', 'admin', sysdate, 0, fseq.currval);
 insert into faqa values (fseq.nextval, 'Q5', '질문 5', 'admin', sysdate, 0, fseq.currval);
 
+insert into faqa values (fseq.nextval, )
+-- 답변
 insert into faqa values (fseq.nextval, 'A1', '답변 1', 'admin', sysdate, 1, 1);
 insert into faqa values (fseq.nextval, 'A2', '답변 2', 'admin', sysdate, 1, 2);
 insert into faqa values (fseq.nextval, 'A3', '답변 3', 'admin', sysdate, 1, 3);
 insert into faqa values (fseq.nextval, 'A4', '답변 4', 'admin', sysdate, 1, 4);
 insert into faqa values (fseq.nextval, 'A5', '답변 5', 'admin', sysdate, 1, 5);
 
+
+
 select * from faqa order by parno asc, gubun asc;
+select * from faqa order by rownum desc;
+select no from (select * from faqa order by rownum desc) where rownum=1;
 
 commit;
 

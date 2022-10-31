@@ -29,12 +29,10 @@
 .page_wrap { width: 1200px; margin: 0 auto; }
 .page_title { padding-top: 1em; text-align: center; }
 .home { color:#333; }
-
 </style>
 <link rel="stylesheet" href="footer.css">
 </head>
 <body>
-<%@ include file="connectionPool.conf" %>
 <div class="wrap">
     <header class="hd">
         <%@ include file = "nav.jsp" %>
@@ -65,6 +63,7 @@
         		<h2 class="page_title">다다일상 FAQ</h2>
   				<div class="tb_fr">
   					<table class="tb">
+<%@ include file="connectionPool.conf" %>
 <%
 		sql = "select * from faqa where no=?";
 		pstmt = con.prepareStatement(sql);
@@ -106,6 +105,7 @@
 					<%
 							}
 					%>
+					<%@ include file="connectionEnd.conf" %>
 					</table>
 					<div class="btn_group">
 						<a href="faq.jsp" class="btn primary">자주하는 질문 및 답변 목록</a>
@@ -124,6 +124,5 @@
 		<%@ include file="footer.jsp" %>
     </footer>
 </div>
-<%@ include file="connectionEnd.conf" %>
 </body>
 </html>

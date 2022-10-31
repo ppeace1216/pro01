@@ -24,6 +24,9 @@
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
+		sql = "select * from faqa order by parno asc, gubun asc";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -73,56 +76,59 @@
             </div>
         </div>
         <section class="page">
-        	<div class="page_wrap">
-        		<h2 class="page_title">다다일상 FAQ</h2>
-        			<div class="tb_fr">
-        				<table class="tb">
-        					<thead>
-        						<tr>
-        							<td>게시 번호</td>
-        							<td>제목</td>
-        							<td>작성일</td>
-        						</tr>
-        					</thead>
-        					<tbody>
+            <div class="page_wrap">
+                <h2 class="page_title">다다일상 FAQ</h2>
+                <p>자주하는 질문들을 모아 답해드립니다.</p>
+  				<div class="tb_fr">
+  					<table class="tb">
+  						<thead>
+  							<tr>
+  								<th>연번</th>
+  								<th>제목</th>
+  								<th>작성자</th>
+  								<th>작성일</th>
+  							</tr>
+  						</thead>
+  						<tbody>         
 <%
-		sql = "select * from faqa order by parno asc, gubun asc;";
-		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
 		while(rs.next()){
 			cnt++;
+			//작성일의 날짜 데이터를 특정 문자열 형식으로 변환
 			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
-			String date = yymmdd.format(rs.getDate("resdate"));	
+			String date = yymmdd.format(rs.getDate("resdate"));
 %>
-        						<tr>
-        							<td><%=cnt %></td>
-									<% if(rs.getInt("gubun")==0) { %>
-									<td><a href='faqDetail.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
-									<% } else { %>
-									<td><a href='faqDetail.jsp?no=<%=rs.getInt("no") %>' style="padding-left:40px;"><%=rs.getString("title") %></a></td>
-									<% } %>
-									<td><%=date %></td>
-        						</tr>
-<%
+			<tr>
+					<td><%=cnt %></td>
+					<td>
+					<% if(rs.getInt("gubun")==0) { %>
+						<a href='faqDetail.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a>
+					<% } else { %>
+						<a href='faqDetail.jsp?no=<%=rs.getInt("no") %>' style="padding-left:30px;"><%=rs.getString("title") %></a>
+					<% } %>
+					</td>
+					<td><%=rs.getString("author") %></td>
+					<td><%=date %></td>
+			</tr>
+<%		
 		}
 	} catch(Exception e) {
-		e.printStackTrace();
+		
 	} finally {
 		rs.close();
 		pstmt.close();
 		con.close();
 	}
 %>
-							</tbody> 
-						</table>
-						<div class="btn_group">
-							<% if(uid.equals("admin")) { %>
-							<a href="faqWrite.jsp" class="btn primary">다다일상 FAQ 등록</a>
-							<% } %>
-						</div>	
-					</div>
+						</tbody> 
+					</table>
+					<div class="btn_group">
+						<% if(uid.equals("admin")) { %>
+						<a href="faqWrite.jsp" class="btn primary">자주하는 질문 및 답변 등록</a>
+						<% } %>
+					</div>	
 			</div>
-		</section>
+		</div>
+	</section>
 	</div>
     <script>
     var sel = document.getElementsByClassName("sel");

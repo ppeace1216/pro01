@@ -1,4 +1,4 @@
-package com.wemedia.util;
+package com.dadadaily.util;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

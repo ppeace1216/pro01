@@ -61,7 +61,7 @@
                 				<tr>
                 					<th>내용</th>
                 					<td>
-                						<textarea rows="50" cols="100" name="content" id="content" class="write_td" maxlength="1000" required></textarea>
+                						<textarea rows="10" cols="100" name="content" id="content" class="write_td" maxlength="1000" required></textarea>
                 					</td>
                 				</tr>
                 				<tr>
