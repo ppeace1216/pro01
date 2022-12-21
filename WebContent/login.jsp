@@ -82,7 +82,7 @@
     <script>
         var join_btn1 = document.getElementById("join");
         join_btn1.addEventListener("click", function(){
-            location.href = "join.jsp";
+            location.href = "term.jsp";
         });    
     </script>
     <footer class="ft">

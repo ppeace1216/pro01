@@ -12,25 +12,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="head.jsp" %>
-<link rel="stylesheet" href="./css/reset2.css">
-<link rel="stylesheet" href="header.css">
-<title>자주하는 질문 및 답변 상세보기</title>
-<style>
-/* header.css */
-.hd { position:fixed; }
-/* content */
-.vs { clear:both; width: 100%; height:300px; overflow: hidden; }
-.vs img { display:block; width: 100%; height:auto; }
-.bread { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
-.bread_fr { width: 1200px; margin: 0 auto; }
-.page { clear:both; width: 100%; min-height:100vh;}
-.page:after { content:""; display:block; clear:both; }
-.page_wrap { width: 1200px; margin: 0 auto; }
-.page_title { padding-top: 1em; text-align: center; }
-.home { color:#333; }
-</style>
-<link rel="stylesheet" href="footer.css">
+	<%@ include file="head.jsp" %>
+	<link rel="stylesheet" href="./css/reset2.css">
+	<link rel="stylesheet" href="header.css">
+	<title>자주하는 질문 및 답변 상세보기</title>
+	<style>
+	/* header.css */
+	.hd { position:fixed; }
+	/* content */
+	.vs { clear:both; width: 100%; height:300px; overflow: hidden; }
+	.vs img { display:block; width: 100%; height:auto; }
+	    .bDetail { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
+	    .bDetail_fr { width: 1200px; margin: 0 auto; }
+	.page { clear:both; width: 100%; min-height:100vh;}
+	.page:after { content:""; display:block; clear:both; }
+	.page_wrap { width: 1200px; margin: 0 auto; }
+	.page_title { padding-top: 1em; text-align: center; }
+	.home { color:#333; }
+	</style>
+	<link rel="stylesheet" href="footer.css">
 </head>
 <body>
 <div class="wrap">
@@ -105,7 +105,7 @@
 					<%
 							}
 					%>
-					<%@ include file="connectionEnd.conf" %>
+					
 					</table>
 					<div class="btn_group">
 						<a href="faq.jsp" class="btn primary">자주하는 질문 및 답변 목록</a>
@@ -124,5 +124,6 @@
 		<%@ include file="footer.jsp" %>
     </footer>
 </div>
+<%@ include file="connectionEnd.conf" %>
 </body>
 </html>

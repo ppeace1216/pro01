@@ -47,6 +47,32 @@
     .page_wrap { width: 1200px; margin: 0 auto; }
     .page_title { padding: 1em 0; }
     .home { color:#333; }
+    
+    .frm { border:2px solid #333; padding: 24px; width: 780px; margin:50px auto; }
+	.tb { display:table; margin:40px auto; width:1200px; border-collapse:collapse; }
+	.tb tr { display:table-row; }
+	.tb td, .tb th { display:table-cell; }
+	.tb th { height: 48px; border-bottom:2px solid #333; border-top:2px solid #333; 
+	   color:#fff; background-color:#333; }
+	.tb td { height: 48px; border-bottom:1px solid #333; text-align:center; }
+	.tb tr th:first-child { width:80px; text-align:center; }
+	.tb tr th:nth-child(2) { width:820px; text-align:center; }
+	.tb tr th:nth-child(3) { width:160px; text-align:center; }
+	.tb tr th:last-child { text-align:center; }
+	.tb tr td:nth-child(2) { text-align:left; text-overflow:ellipsis; overflow:hidden;
+	white-space:nowrap; }
+	.tb tr td a { display:block; color:#333; padding-left:4px; padding-right:4px; 
+	width:810px; text-overflow:ellipsis; overflow:hidden;
+	white-space:nowrap; }
+	.tb tr td a:hover { text-decoration:underline; }
+	.tb_com { clar:both; width:100%; height:48px; }
+	strong.total { display:block; text-align:right; padding-top:60px; margin-bottom:-20px; float:right; }
+	strong.cur { display:block; text-align:left; padding-top:60px; margin-bottom:-20px; float:left; }
+	.btn_group { clear:both; width:1200px; margin:20px auto; }
+	.btn_group .btn { display:block; float:left; margin:20px; min-width:100px; padding:8px; font-size:14px;
+	line-height:24px; border-radius:36px; border:2px solid #333; text-align:center; }
+	.btn_group .btn.primary { background-color:#333; color:#fff; }
+	.btn_group .btn.primary:hover { background-color:deepskyblue; }
     </style>
 </head>
 <body>
@@ -58,8 +84,8 @@
         <figure class="vs">
             <img src="./img/tea_garden.jpg" alt="비주얼">
         </figure>
-        <div class="bread">
-            <div class="bread_fr">
+        <div class="bDetail">
+            <div class="bDetail_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
                 <select name="sel5" id="sel5" class="sel">
                     <option value="">다다일상</option>

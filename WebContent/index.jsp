@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="footer.css">
     <style>
     /* header.css */
+
     .content {clear: both; width: 100%;}
     .vs { clear:both; width: 100%; height:645px; overflow:hidden; }
     .img { display:block; width:100%; height:auto; }

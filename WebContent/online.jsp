@@ -15,8 +15,8 @@
     /* content */
     .vs { clear:both; width: 100%; height:300px; overflow: hidden; }
     .vs img { display:block; width: 100%; height:auto; }
-    .bread { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
-    .bread_fr { width: 1200px; margin: 0 auto; }
+    .bDetail { clear:both; width: 100%; line-height: 60px; border-bottom:3px solid #eee; }
+    .bDetail_fr { width: 1200px; margin: 0 auto; }
     .page { clear:both; width: 100%; min-height:100vh;}
     .page:after { content:""; display:block; clear:both; }
     .page_wrap { width: 1200px; margin: 0 auto; }
@@ -51,20 +51,32 @@
 <header class="hd">
 	<%@ include file="nav.jsp" %>
 </header>
-<div class="content" id="page1">
-	<figure class="vs">
-           <img src="./img/tea_garden.jpg" alt="비주얼">
-       </figure>
-	<div class="bread">
-          <div class="bread_fr">
-              <a href="index.jsp" class="home">HOME</a> &gt;
-              <span class="sel">온라인 상담 하기</span>
-          </div>
-	</div>
+    <div class="content" id="page1">
+        <figure class="vs">
+            <img src="./img/tea_garden.jpg" alt="비주얼">
+        </figure>
+        <div class="bDetail">
+            <div class="bDetail_fr">
+                <a href="index.jsp" class="home">HOME</a> &gt;
+                <select name="sel1" id="sel1" class="sel">
+                    <option value="">고객센터</option>
+                    <option value="product.jsp#page1">제품</option>
+                    <option value="gift.jsp#page1">선물세트</option>
+                    <option value="subscription.jsp#page1">다다일상</option>
+                    <option value="brand.jsp#page1">브랜드</option>
+                </select> &gt;
+                <select name="sel2" id="sel2" class="sel">
+                    <option value="boardList.jsp" selected>문의 게시판</option>
+                    <option value="customer.jsp#page1">매장찾기</option>
+                    <option value="" selected>온라인 상담</option>
+                </select>
+            </div>
+        </div>
 	<section class="page">
 		<div class="page_wrap">
-			<h2 class="page_title">온라인 상담 하기</h2>
-			<p style="clear:both">작성하여 보내신 내용은 관리자 이메일로 보내지며, 내용을 확인 후 별도 개별적으로 3일 이내 연락드립니다.</p>
+			<h2 class="page_title">온라인 상담 하기</h2><br><br>
+			<p style="clear:both">※ 온라인 상담은 회원만 작성 가능합니다. 로그인을 하지 않으셨다면 로그인 후 상담 작성 부탁드립니다.</p><br>
+			<h3 style="clear:both">작성하여 보내신 내용은 관리자 이메일로 보내지며, 내용을 확인 후 별도 개별적으로 3일 이내 연락드립니다.</h3>
 		<%@ include file="connectionPool.conf" %>
 		<%
 		sql = "select * from membera where id=?";
@@ -112,7 +124,6 @@
 					</table>
 					<div class="btn_group">
 						<button type="submit" class="btn primary">상담 받기</button>
-						<a href="qnaList.jsp" class="btn primary">질문 및 답변으로</a>
 					</div>
 				</form>
 			</div>
@@ -122,9 +133,9 @@
 			<%@ include file="connectionEnd.conf" %>
 			</div>
 	</section>
-	<footer class="ft">
-		<%@ include file="footer.jsp" %>
-	</footer>
 </div>
+<footer class="ft">
+	<%@ include file="footer.jsp" %>
+</footer>
 </body>
 </html>
